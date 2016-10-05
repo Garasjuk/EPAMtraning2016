@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ApplicationActivitiFlag</string>
+    <string name="post">POST</string>
+    <string name="button_text">Next Activity</string>
+</resources>
