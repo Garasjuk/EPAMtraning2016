@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">MyPageProofsApplication</string>
     <string name="action_settings">Settings</string>
+    <string name="_82_746">82 746 Подписчиков</string>
+    <string name="Sity_Kalamazy">Город: Каламазу</string>
+    <string name="MessageButton">Сообщение</string>
+    <string name="InYourFriends">У вас в друзьях</string>
+    <string name="FullInformation">Подробная информация</string>
+    <string name="_512_53">512 Друзей * 53 Общих</string>
+    <string name="points">...</string>
+    <string name="home">Home</string>
+    <string name="friends">Friends</string>
+    <string name="rss">rss</string>
+    <string name="presly">Элвис Пресли</string>
+    <string name="online">Онлайн</string>
 </resources>

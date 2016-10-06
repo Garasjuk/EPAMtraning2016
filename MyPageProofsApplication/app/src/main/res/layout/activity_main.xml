@@ -28,43 +28,33 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
 
-                app:srcCompat="?attr/actionModeCloseDrawable" />
+                app:srcCompat="@drawable/navig3"
+                android:layout_width="@dimen/size30"
+                android:layout_height="@dimen/size30" />
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="19dp"
                 android:layout_marginRight="19dp"
                 android:layout_toLeftOf="@+id/imageView3"
                 android:layout_toStartOf="@+id/imageView3"
-                app:srcCompat="@drawable/christmasgift" />
+                app:srcCompat="@mipmap/present"
+                android:layout_width="@dimen/size30"
+                android:layout_height="@dimen/size30" />
 
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="52dp"
-                android:layout_height="52dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="11dp"
                 android:layout_marginRight="11dp"
-                app:srcCompat="@drawable/button" />
-
-            <TextView
-                android:id="@+id/textStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/imageView"
-                android:layout_alignParentBottom="true"
-                android:layout_alignRight="@+id/imageView"
-                android:layout_marginBottom="15dp"
-                android:text="Онлайн" />
+                app:srcCompat="@drawable/button2"
+                android:layout_width="@dimen/size30"
+                android:layout_height="@dimen/size30" />
 
             <TextView
                 android:id="@+id/textName"
@@ -74,8 +64,18 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="11dp"
-                android:text="Элвис Пресли"
+                android:text="@string/presly"
                 android:textSize="40px" />
+
+            <TextView
+                android:id="@+id/textStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:text="@string/online"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
 
@@ -83,7 +83,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
-
 
 
 </android.support.design.widget.CoordinatorLayout>
