@@ -11,10 +11,20 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "name_text", "My App Name"
+            buildConfigField "int", "FOO", "52" //You can access them with BuildConfig.FOO
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "name_text", "My App Name Debug"
+            buildConfigField "boolean", "LOG", "false"
         }
     }
 
@@ -37,6 +47,13 @@ flavorDimensions "ver", "country";
             dimension "country";
         }
 
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent,
+                    output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
+        }
     }
 }
 
