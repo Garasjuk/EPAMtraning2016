@@ -17,7 +17,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             resValue "string", "name_text", "My App Name"
-            buildConfigField "int", "FOO", "52" //You can access them with BuildConfig.FOO
+            buildConfigField "int", "FOO", "52" 
         }
 
         debug {
