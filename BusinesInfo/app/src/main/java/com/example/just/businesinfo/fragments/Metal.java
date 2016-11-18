@@ -74,7 +74,7 @@ public class Metal extends Fragment {
                         Toast.makeText(getActivity(), "Network is not connected", Toast.LENGTH_LONG).show();
                     } else {
 //                        Toast.makeText(getActivity(), "Network is connecting", Toast.LENGTH_SHORT).show();
-//                        showProgressBar();
+                        showProgressBar();
                         parseXmlMetal = new Metal.ParseXmlMetal();
                         parseXmlMetal.execute();
                     }
@@ -132,6 +132,12 @@ public class Metal extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onResume() {
+        super.onResume();
+        showProgressBar();
+        loadDBMetal = new Metal.LoadDBMetal();
+        loadDBMetal.execute();
+    }
 
     public static boolean hasConnection(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -175,7 +181,7 @@ public class Metal extends Fragment {
                 InputSource inputSourceIngot = null;
 
                 URL urlMetal = new URL("http://www.nbrb.by/Services/XmlMetalsRef.aspx");
-                URL urlIngot = new URL("http://www.nbrb.by/Services/XmlIngots.aspx?onDate=" + mMonth + "/" + 4 + "/" + mYear);
+                URL urlIngot = new URL("http://www.nbrb.by/Services/XmlIngots.aspx?onDate=" + mMonth + "/" + mDay + "/" + mYear);
 
                 inputSourceMetal = new InputSource(urlMetal.openStream());
                 Log.v(LOG_TAG, "Url: " + urlMetal);

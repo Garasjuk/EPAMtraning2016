@@ -15,29 +15,31 @@ import android.widget.Toast;
 
 import com.example.just.businesinfo.Entity.MetalDataSet;
 import com.example.just.businesinfo.R;
+import com.example.just.businesinfo.SettingActivity;
 import com.example.just.businesinfo.adapter.BoxAdapter;
 import com.example.just.businesinfo.adapter.MetalAdapterSetting;
 import com.example.just.businesinfo.connect.DatabaseHandler;
+import com.example.just.businesinfo.connect.ParsedDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingMetal extends Fragment {
+public class SettingCurrency extends Fragment {
 
-    public static final String LOG_TAG = "SettingActivity.java";
+    public static final String LOG_TAG = "SettingCurrency.java";
 
     DatabaseHandler db;
-//    List<MetalDataSet> metalDataSet = new ArrayList<MetalDataSet>();
+    List<ParsedDataSet> parsedDataSet = new ArrayList<ParsedDataSet>();
     private ListView lv;
     //    private CheckBox cb;
-    SettingMetal.GetDBSettingMetal getDBSettingMetal;
-//    BoxAdapter boxAdapter;
+    SettingCurrency.GetDBSettingCurrency getDBSettingCurrency;
+    BoxAdapter boxAdapter;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_setting_metal, container, false);
+        View view = inflater.inflate(R.layout.fragment_setting_currency, container, false);
 
-        lv = (ListView) view.findViewById(R.id.list_metal_setting);
+        lv = (ListView) view.findViewById(R.id.list_currency_setting);
         db = new DatabaseHandler(getActivity());
 //        lv.setOnItemClickListener(itemClickListener);
 
@@ -61,8 +63,8 @@ public class SettingMetal extends Fragment {
         });
 
         try {
-            getDBSettingMetal = new SettingMetal.GetDBSettingMetal();
-            getDBSettingMetal.execute();
+            getDBSettingCurrency = new SettingCurrency.GetDBSettingCurrency();
+            getDBSettingCurrency.execute();
 
 
         } catch (NullPointerException e) {
@@ -74,20 +76,20 @@ public class SettingMetal extends Fragment {
     }
 
 
-    public class GetDBSettingMetal extends AsyncTask<Void, Void, ArrayList<MetalDataSet>> {
+    public class GetDBSettingCurrency extends AsyncTask<Void, Void, ArrayList<ParsedDataSet>> {
 
 
-        public static final String LOG_TAG = "SettingMetal.java";
+        public static final String LOG_TAG = "SettingActivity.java";
 
         @Override
-        protected ArrayList<MetalDataSet> doInBackground(Void... argo0) {
-            ArrayList<MetalDataSet> metalDataSet = new ArrayList<MetalDataSet>();
+        protected ArrayList<ParsedDataSet> doInBackground(Void... argo0) {
+            ArrayList<ParsedDataSet> parsedDataSets = new ArrayList<ParsedDataSet>();
 
             try {
 
                 Log.v(LOG_TAG, "Load AsyncTask ");
 
-                metalDataSet = db.getAllMetalSetting();
+                parsedDataSets = db.getAllCurrencySetting();
 
 
             } catch (NullPointerException e) {
@@ -96,17 +98,17 @@ public class SettingMetal extends Fragment {
                 e.printStackTrace();
             }
 
-            return metalDataSet;
+            return parsedDataSets;
 //            return contactList;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<MetalDataSet> result) {
+        protected void onPostExecute(ArrayList<ParsedDataSet> result) {
             super.onPostExecute(result);
 
             Log.v(LOG_TAG, "get DB ");
 
-            ListAdapter adapter = new MetalAdapterSetting(
+            ListAdapter adapter = new BoxAdapter(
                     getActivity(), result);
             lv.setAdapter(adapter);
 

@@ -22,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "currencyManager6";
+    private static final String DATABASE_NAME = "currencyManager7";
 
     // Currency table name
     private static final String TABLE_CURRENCY = "currencyTable1";
@@ -76,8 +76,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_METAL_TABLE);
     }
-
-
 
 
     // Upgrading database
@@ -252,7 +250,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<MetalDataSet> getAllMetalSetting() {
         ArrayList<MetalDataSet> metalDataSetList = new ArrayList<MetalDataSet>();
         // Select All Query
-        String selectQuery = "SELECT id, CharCode, Status FROM " + TABLE_CURRENCY;
+        String selectQuery = "SELECT id, Name, NameEng, Nominal, Status FROM " + TABLE_METAL;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -300,6 +298,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         // return currency list
         return carsedDataSetList;
     }
@@ -333,7 +332,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<MetalDataSet> getAllMetal() {
         ArrayList<MetalDataSet> metalDataSetArrayList = new ArrayList<MetalDataSet>();
         // Select All Query
-        String selectQuery = "SELECT  metalId, nominal, name , nameEng, certificateRuble, banksDollars FROM " + TABLE_METAL;
+        String selectQuery = "SELECT  metalId, nominal, name , nameEng, certificateRuble, banksDollars FROM " + TABLE_METAL + " WHERE status = 'true'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -353,6 +352,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 metalDataSetArrayList.add(metalDataSet);
             } while (cursor.moveToNext());
         }
+        cursor.close();
         return metalDataSetArrayList;
     }
 
@@ -437,6 +437,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             return db.update(TABLE_CURRENCY, values, KEY_ID + " = " + id, null);
         }
 //                new String[]{String.valueOf(parsedDataSet.getId())});
+    }
+
+    // Updating status
+    public int updateMetalStatus(int id, boolean status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        // updating row
+        if (status) {
+            Log.v("Update ", id + " " + status);
+            values.put(KEY_status, "true");
+            return db.update(TABLE_METAL, values, KEY_ID + " = " + id, null);
+        } else {
+            values.put(KEY_status, "false");
+            Log.v("Update ", id + " " + status);
+            return db.update(TABLE_METAL, values, KEY_ID + " = " + id, null);
+        }
     }
 
 

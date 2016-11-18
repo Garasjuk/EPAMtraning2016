@@ -7,6 +7,10 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_second">SecondActivity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="provider_gps">GPS</string>
+    <string name="provider_network">Network</string>
+    <string name="location_settings">Location settings</string>
+
 </resources>

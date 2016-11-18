@@ -55,14 +55,10 @@ public class MetalAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = lInflater.inflate(R.layout.list_metal, parent, false);
         }
-
-
-
 
         final MetalDataSet p = getMetalDataSet(position);
         ((TextView) convertView.findViewById(R.id.Name)).setText(p.getName());
@@ -72,11 +68,8 @@ public class MetalAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.byn)).setText(p.getCertificateRubles());
         ((TextView) convertView.findViewById(R.id.usa)).setText(p.getBanksDollars());
 
-
-
         return convertView;
     }
-
 
     MetalDataSet getMetalDataSet(int position) {
         return ((MetalDataSet) getItem(position));

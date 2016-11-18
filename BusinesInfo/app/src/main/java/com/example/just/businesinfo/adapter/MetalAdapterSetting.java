@@ -15,7 +15,6 @@ import com.example.just.businesinfo.connect.DatabaseHandler;
 
 import java.util.ArrayList;
 
-
 public class MetalAdapterSetting extends BaseAdapter {
 
     public static final String LOG_TAG = "MetalAdapterSetting.java";
@@ -55,7 +54,6 @@ public class MetalAdapterSetting extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-
         ViewHolder holder = null;
         if (convertView == null) {
             convertView = lInflater.inflate(R.layout.list_metal_setting, parent, false);
@@ -69,7 +67,6 @@ public class MetalAdapterSetting extends BaseAdapter {
             public void onClick(View v) {
                 CheckBox cb = (CheckBox) v;
                 Log.v(LOG_TAG, String.valueOf(cb.isChecked()));
-
             }
         });
 
@@ -77,7 +74,7 @@ public class MetalAdapterSetting extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.name)).setText(p.getName());
         ((TextView) convertView.findViewById(R.id.nameEng)).setText(p.getNameEng());
         ((TextView) convertView.findViewById(R.id.nominal)).setText(p.getNominal());
-        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
+//        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 
 //        Log.v("BOX_ADAPTER", "Status:" + p.getStatus() );
         if (p.getStatus().equals("true")) {
@@ -95,13 +92,12 @@ public class MetalAdapterSetting extends BaseAdapter {
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 if (finalHolder.checkBox.isChecked()) {
                     Log.v(LOG_TAG, String.valueOf(p.getId()) + " " + p.getName());
-//                    db.updateStatus(p.getId(), true);
+                    db.updateMetalStatus(p.getId(), true);
                 } else {
                     Log.v(LOG_TAG, String.valueOf(p.getId()) + " " + p.getName());
-//                    db.updateStatus(p.getId(),false);
+                    db.updateMetalStatus(p.getId(), false);
                 }
             }
         });
