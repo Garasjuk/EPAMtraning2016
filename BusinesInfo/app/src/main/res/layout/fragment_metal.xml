@@ -7,22 +7,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.just.businesinfo.fragments.Metal">
+    tools:context="com.example.just.businesinfo.fragments.MetalFragment"
+    android:background="@drawable/gold_silver">
 
     <!-- TODO: Update blank fragment layout -->
 
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        android:visibility="invisible"
-        android:layout_above="@+id/list_metal"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp" />
 
     <ListView
         android:id="@+id/list_metal"
@@ -32,31 +21,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="15dp" />
-
-    <Button
-        android:text="Updata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn1"
-        android:onClick="onClickBnt1 (Currency)"
-        android:background="@animator/button_background"
-        android:layout_marginTop="42dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp" />
-
-    <TextView
-        android:text="Cena"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView4"
-        android:layout_marginRight="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_alignBottom="@+id/progressBar"
-        android:layout_toLeftOf="@+id/progressBar"
-        android:layout_toStartOf="@+id/progressBar" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,6 +32,39 @@
         android:layout_below="@+id/btn1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Updata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn1"
+        android:onClick="onClickBnt1 (Currency)"
+        android:background="@animator/button_background"
+        android:layout_marginTop="67dp"
+        android:elevation="1dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Cena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_marginRight="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_below="@+id/btn1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="30dp"
+        android:id="@+id/progressBar"
+        android:visibility="invisible"
+        android:layout_height="30dp"
+        android:layout_below="@+id/btn1"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

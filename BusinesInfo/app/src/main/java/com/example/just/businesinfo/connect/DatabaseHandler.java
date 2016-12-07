@@ -5,11 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.WorkerThread;
 import android.util.Log;
 
 import com.example.just.businesinfo.Entity.IngotDataSet;
 import com.example.just.businesinfo.Entity.MetalDataSet;
-import com.example.just.businesinfo.fragments.Metal;
+import com.example.just.businesinfo.Entity.ParsedDataSet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +25,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "currencyManager7";
 
-    // Currency table name
+    // CurrencyFragment table name
     private static final String TABLE_CURRENCY = "currencyTable1";
     private static final String TABLE_METAL = "metalTable1";
 
-    // Currency Table Columns names
+    // CurrencyFragment Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_currency = "currency";
     private static final String KEY_numCode = "numCode";
@@ -43,6 +44,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_nameEng = "nameEng";
     private static final String KEY_certificateRuble = "certificateRuble";
     private static final String KEY_banksDollars = "banksDollars";
+
+    private static final String SELECT_getAllCurrencySetting = "SELECT id, CharCode, Status FROM ";
+    private static final String SELECT_getAllMetalSetting = "SELECT id, Name, NameEng, Nominal, Status FROM ";
+    private static final String SELECT_getAllContactsHash = "SELECT CharCode, Scale, Name, Rate FROM ";
+    private static final String SELECT_getAllMetal = "SELECT  metalId, nominal, name , nameEng, certificateRuble, banksDollars FROM ";
+    private static final String DROP_table = "DROP TABLE IF EXISTS ";
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -82,7 +90,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENCY);
+        db.execSQL(DROP_table + TABLE_CURRENCY);
 
         // Create tables again
         onCreate(db);
@@ -91,9 +99,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onDrop() {
         SQLiteDatabase db = this.getWritableDatabase();
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CURRENCY);
+        db.execSQL(DROP_table + TABLE_CURRENCY);
         onCreate(db);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_METAL);
+        db.execSQL(DROP_table + TABLE_METAL);
         onCreate(db);
     }
 
@@ -103,11 +111,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     // Adding new ParsedDataSet
+    @WorkerThread
     public void addContact(ParsedDataSet parsedDataSet) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_currency, parsedDataSet.getCurrency()); // Currency
+        values.put(KEY_currency, parsedDataSet.getCurrency()); // CurrencyFragment
         values.put(KEY_numCode, parsedDataSet.getNumCode()); //  NumCode
         values.put(KEY_charCode, parsedDataSet.getCharCode()); // CharCode
         values.put(KEY_name, parsedDataSet.getName()); // Name
@@ -220,11 +229,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    // Getting All Currency
+    // Getting All CurrencyFragment
     public ArrayList<ParsedDataSet> getAllCurrencySetting() {
         ArrayList<ParsedDataSet> carsedDataSetList = new ArrayList<ParsedDataSet>();
         // Select All Query
-        String selectQuery = "SELECT id, CharCode, Status FROM " + TABLE_CURRENCY;
+        String selectQuery = SELECT_getAllCurrencySetting + TABLE_CURRENCY;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -246,11 +255,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return carsedDataSetList;
     }
 
-    // Getting All Metal
+    // Getting All MetalFragment
     public ArrayList<MetalDataSet> getAllMetalSetting() {
         ArrayList<MetalDataSet> metalDataSetList = new ArrayList<MetalDataSet>();
         // Select All Query
-        String selectQuery = "SELECT id, Name, NameEng, Nominal, Status FROM " + TABLE_METAL;
+        String selectQuery = SELECT_getAllMetalSetting + TABLE_METAL;
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -278,7 +287,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<HashMap<String, String>> getAllContactsHash() {
         List<HashMap<String, String>> carsedDataSetList = new ArrayList<>();
         // Select All Query
-        String selectQuery = "SELECT CharCode, Scale, Name, Rate FROM " + TABLE_CURRENCY + " WHERE status = 'true'";
+        String selectQuery = SELECT_getAllContactsHash + TABLE_CURRENCY + " WHERE status = 'true'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -328,11 +337,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    // Getting All Metal
+    // Getting All MetalFragment
     public ArrayList<MetalDataSet> getAllMetal() {
         ArrayList<MetalDataSet> metalDataSetArrayList = new ArrayList<MetalDataSet>();
         // Select All Query
-        String selectQuery = "SELECT  metalId, nominal, name , nameEng, certificateRuble, banksDollars FROM " + TABLE_METAL + " WHERE status = 'true'";
+        String selectQuery = SELECT_getAllMetal + TABLE_METAL + " WHERE status = 'true'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -436,7 +445,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             Log.v("Update ", id + " " + status);
             return db.update(TABLE_CURRENCY, values, KEY_ID + " = " + id, null);
         }
-//                new String[]{String.valueOf(parsedDataSet.getId())});
     }
 
     // Updating status
@@ -447,12 +455,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // updating row
         if (status) {
-            Log.v("Update ", id + " " + status);
+//            Log.v("Update ", id + " " + status);
             values.put(KEY_status, "true");
             return db.update(TABLE_METAL, values, KEY_ID + " = " + id, null);
         } else {
             values.put(KEY_status, "false");
-            Log.v("Update ", id + " " + status);
+//            Log.v("Update ", id + " " + status);
             return db.update(TABLE_METAL, values, KEY_ID + " = " + id, null);
         }
     }

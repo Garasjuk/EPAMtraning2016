@@ -2,6 +2,8 @@ package com.example.just.businesinfo.connect;
 
 import android.util.Log;
 
+import com.example.just.businesinfo.Entity.ParsedDataSet;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -37,7 +39,7 @@ public class XmlContentHandler extends DefaultHandler {
     public void startElement(String namespaceURI, String localName,
                              String qName, Attributes atts) throws SAXException {
 
-        if (localName.equals("Currency")) {
+        if (localName.equals("CurrencyFragment")) {
             // meaning new data object will be made
             this.mParsedDataSet = new ParsedDataSet();
             this.inCurrency = true;
@@ -49,9 +51,9 @@ public class XmlContentHandler extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName)
             throws SAXException {
 
-        if (this.inCurrency == true && localName.equals("Currency")) {
+        if (this.inCurrency == true && localName.equals("CurrencyFragment")) {
             this.mParsedDataSetList.add(mParsedDataSet);
-            mParsedDataSet.setCurrency("Currency");
+            mParsedDataSet.setCurrency("CurrencyFragment");
             this.inCurrency = false;
         }
 

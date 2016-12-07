@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.just.businesinfo.R;
 import com.example.just.businesinfo.connect.DatabaseHandler;
-import com.example.just.businesinfo.connect.ParsedDataSet;
+import com.example.just.businesinfo.Entity.ParsedDataSet;
 
 import java.util.ArrayList;
 

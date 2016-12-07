@@ -12,5 +12,10 @@
     <string name="provider_gps">GPS</string>
     <string name="provider_network">Network</string>
     <string name="location_settings">Location settings</string>
+    <string name="currencyTab">Currency</string>
+    <string name="metalTab">Metal</string>
+    <string name="weatherTab">Weather</string>
+    <string name="SettingMetalTab">Metal</string>
+    <string name="SettingCurrencyTab">Currency</string>
 
 </resources>

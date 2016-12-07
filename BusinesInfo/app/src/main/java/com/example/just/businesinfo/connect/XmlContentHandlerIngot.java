@@ -55,7 +55,7 @@ public class XmlContentHandlerIngot extends DefaultHandler {
 
         if (this.inIngotsPrices == true && localName.equals("IngotsPrices")) {
             this.mIngotDataSetList.add(mIngotDataSet);
-//            mParsedDataSet.setCurrency("Currency");
+//            mParsedDataSet.setCurrency("CurrencyFragment");
             this.inIngotsPrices = false;
         }else if (this.inIngotsPrices == true && localName.equals("CertificateRubles")) {
             mIngotDataSet.setCertificateRubles(mStringBuilder.toString().trim());

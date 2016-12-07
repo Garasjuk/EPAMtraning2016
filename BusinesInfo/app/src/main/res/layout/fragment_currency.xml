@@ -9,8 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.just.businesinfo.fragments.Currency"
-    >
+    tools:context="com.example.just.businesinfo.fragments.CurrencyFragment"
+    android:background="@drawable/money">
 
     <ListView
         android:id="@+id/list"
@@ -19,19 +19,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView2" />
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="26dp"
-        android:layout_marginEnd="26dp"
-        android:id="@+id/progressBar"
-        android:visibility="invisible"
-        android:layout_above="@+id/textView4"
-        android:layout_alignTop="@+id/btn1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,31 +31,36 @@
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp" />
 
+    <Button
+        android:text="Updata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn1"
+        android:layout_marginTop="68dp"
+        android:onClick="onClickBnt1 (Currency)"
+        android:background="@animator/button_background"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/progressBar"
+        android:visibility="invisible"
+        android:layout_below="@+id/btn1"
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:text="NBRB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView4"
-        android:layout_below="@+id/btn1"
-        android:layout_alignRight="@+id/progressBar"
-        android:layout_alignEnd="@+id/progressBar"
-        android:layout_marginRight="19dp"
-        android:layout_marginEnd="19dp"
-        android:layout_alignLeft="@+id/progressBar"
-        android:layout_alignStart="@+id/progressBar" />
-
-    <Button
-        android:text="Updata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn1"
-        android:layout_marginTop="46dp"
-        android:onClick="onClickBnt1 (Currency)"
-        android:background="@animator/button_background"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2" />
+        android:layout_marginRight="56dp"
+        android:layout_marginEnd="56dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/list" />
 
 </RelativeLayout>

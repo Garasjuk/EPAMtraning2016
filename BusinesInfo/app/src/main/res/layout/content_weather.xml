@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:text="description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:id="@+id/description"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:text="Speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/speed_description"
+        android:layout_above="@+id/speed"
+        android:layout_toLeftOf="@+id/description"
+        android:layout_toStartOf="@+id/description" />
+
+    <TextView
+        android:text="Humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/temp__description"
+        android:layout_toRightOf="@+id/description"
+        android:layout_toEndOf="@+id/description"
+        android:id="@+id/humidity__description" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/humidity"
+        android:layout_below="@+id/humidity__description"
+        android:layout_alignLeft="@+id/deg"
+        android:layout_alignStart="@+id/deg"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pressure"
+        android:layout_below="@+id/temp"
+        android:layout_alignRight="@+id/temp"
+        android:layout_alignEnd="@+id/temp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/colorBlack" />
+
+    <TextView
+        android:text="Temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temp__description"
+        android:layout_below="@+id/speed"
+        android:layout_alignRight="@+id/speed_description"
+        android:layout_alignEnd="@+id/speed_description" />
+
+    <TextView
+        android:text="Pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pressure__description"
+        android:layout_below="@+id/temp"
+        android:layout_alignRight="@+id/temp__description"
+        android:layout_alignEnd="@+id/temp__description" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/fon_alpha"
+        android:id="@+id/icon"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/description"
+        android:layout_toLeftOf="@+id/pressure__description"
+        android:layout_toStartOf="@+id/pressure__description" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/speed"
+        android:textColor="@color/colorBlack"
+        android:layout_alignTop="@+id/icon"
+        android:layout_alignRight="@+id/speed_description"
+        android:layout_alignEnd="@+id/speed_description" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temp"
+        android:textColor="@color/colorBlack"
+        android:layout_below="@+id/temp__description"
+        android:layout_alignRight="@+id/temp__description"
+        android:layout_alignEnd="@+id/temp__description" />
+
+    <TextView
+        android:text="Deg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deg__description"
+        android:layout_above="@+id/deg"
+        android:layout_toRightOf="@+id/description"
+        android:layout_toEndOf="@+id/description" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deg"
+        android:textColor="@color/colorBlack"
+        android:layout_above="@+id/humidity__description"
+        android:layout_toRightOf="@+id/deg__description"
+        android:layout_toEndOf="@+id/deg__description" />
+
+
+</RelativeLayout>

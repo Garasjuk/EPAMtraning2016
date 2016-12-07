@@ -11,9 +11,9 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 
 import com.example.just.businesinfo.adapter.TabsAdapter;
-import com.example.just.businesinfo.fragments.Currency;
-import com.example.just.businesinfo.fragments.Metal;
-import com.example.just.businesinfo.fragments.Weather;
+import com.example.just.businesinfo.fragments.CurrencyFragment;
+import com.example.just.businesinfo.fragments.MetalFragment;
+import com.example.just.businesinfo.fragments.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         mTabHost.setup();
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
-        mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Currency"), Currency.class, null);
-        mTabsAdapter.addTab(mTabHost.newTabSpec("contacts").setIndicator("Metal"), Metal.class, null);
-        mTabsAdapter.addTab(mTabHost.newTabSpec("weather").setIndicator("Weather"), Weather.class, null);
+        mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator(getString(R.string.currencyTab)), CurrencyFragment.class, null);
+        mTabsAdapter.addTab(mTabHost.newTabSpec("contacts").setIndicator(getString(R.string.metalTab)), MetalFragment.class, null);
+        mTabsAdapter.addTab(mTabHost.newTabSpec("weather").setIndicator(getString(R.string.weatherTab)), WeatherFragment.class, null);
 
         if (savedInstanceState != null) {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));

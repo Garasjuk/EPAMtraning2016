@@ -37,7 +37,7 @@ public class XmlContentHandlerMetal extends DefaultHandler {
     public void startElement(String namespaceURI, String localName,
                              String qName, Attributes atts) throws SAXException {
 
-        if (localName.equals("Metal")) {
+        if (localName.equals("MetalFragment")) {
             // meaning new data object will be made
             this.mMetalDataSet = new MetalDataSet();
             this.inMetal = true;
@@ -50,9 +50,9 @@ public class XmlContentHandlerMetal extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName)
             throws SAXException {
 
-        if (this.inMetal == true && localName.equals("Metal")) {
+        if (this.inMetal == true && localName.equals("MetalFragment")) {
             this.mMetalDataSetList.add(mMetalDataSet);
-//            mParsedDataSet.setCurrency("Currency");
+//            mParsedDataSet.setCurrency("CurrencyFragment");
             this.inMetal = false;
         } else if (this.inMetal == true && localName.equals("Name")) {
             mMetalDataSet.setName(mStringBuilder.toString().trim());

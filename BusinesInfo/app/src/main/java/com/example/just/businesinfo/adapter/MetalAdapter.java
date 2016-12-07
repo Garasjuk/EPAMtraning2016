@@ -64,7 +64,7 @@ public class MetalAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.Name)).setText(p.getName());
         ((TextView) convertView.findViewById(R.id.nameEng)).setText(p.getNameEng());
         ((TextView) convertView.findViewById(R.id.nominal)).setText(p.getNominal());
-//        Log.v("Metal adapter", p.getNominal() );
+//        Log.v("MetalFragment adapter", p.getNominal() );
         ((TextView) convertView.findViewById(R.id.byn)).setText(p.getCertificateRubles());
         ((TextView) convertView.findViewById(R.id.usa)).setText(p.getBanksDollars());
 
