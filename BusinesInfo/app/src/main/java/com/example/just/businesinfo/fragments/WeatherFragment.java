@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.just.businesinfo.App;
+import com.example.just.businesinfo.ImageLoader.IImageLoader;
 import com.example.just.businesinfo.R;
 import com.example.just.businesinfo.location.*;
 import com.google.android.gms.maps.CameraUpdate;
@@ -60,11 +62,12 @@ public class WeatherFragment extends Fragment {
     MapView mapView;
     GoogleMap mMap;
     Bitmap bmp = null;
+    Bitmap bmpfon = null;
     public static final String LOG_TAG = "WeatherFragment.java";
     GPSTracker gps;
     Button btn1;
     TextView description, temp, pressure, humidity, speed, deg;
-    ImageView icon;
+    ImageView icon, fon;
     private double latitude;
     private double longitude;
     //    private static String url;
@@ -95,6 +98,7 @@ public class WeatherFragment extends Fragment {
         deg = (TextView) view.findViewById(R.id.deg);
 
         icon = (ImageView) view.findViewById(R.id.icon);
+        fon = (ImageView) view.findViewById(R.id.fon);
 
         description.setText(sharedPreferences.getString(sDescription, ""));
         temp.setText(sharedPreferences.getString(sTemp, ""));
@@ -269,10 +273,28 @@ public class WeatherFragment extends Fragment {
                 Log.v(LOG_TAG, "speed " + speed);
                 Log.v(LOG_TAG, "deg " + deg);
 
+                String urlbmp = "http://www.grodlait.by/images/weather/" + weather.get("icon") + ".png";
+//                String urlbmp = "http://www.grodlait.by/images/weather/" + "50n" + ".png";
+//                if (weather.get("icon").equals("01d")) {
+//                    urlbmp = "https://www.dropbox.com/s/8i6hr5w7klgd122/" + weather.get("icon") + ".png?dl=0";
+//                } else if (weather.get("icon").equals("02d")) {
+//                    urlbmp = "https://www.dropbox.com/s/u1smgn4ji8lo6jw/" + weather.get("icon") + ".png?dl=0";
+//                } else if (weather.get("icon").equals("03d")) {
+//                    urlbmp = "https://www.dropbox.com/s/d5hfs4afsw7oluy/" + weather.get("icon") + ".png?dl=0";
+//                } else if (weather.get("icon").equals("04d")) {
+//                    urlbmp = "https://www.dropbox.com/s/v7z4uw4z6xy6g1z/" + weather.get("icon") + ".png?dl=0";
+//                } else {
+//                    urlbmp = "https://www.dropbox.com/s/r0ttfkmt7fiz62e/50d.png?dl=0";
+//                }
 
-                String urlstr = "http://openweathermap.org/img/w/" + weather.getString("icon") + ".png";
-                Log.v(LOG_TAG, "URL " + urlstr);
-                bmp = downloadImage(urlstr);
+                    Log.v(LOG_TAG, "URL " + urlbmp);
+
+                    bmpfon = downloadImage(urlbmp);
+
+                    String urlstr = "http://openweathermap.org/img/w/" + weather.getString("icon") + ".png";
+                    Log.v(LOG_TAG, "URL " + urlstr);
+                    bmp = downloadImage(urlstr);
+
 
 //                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
 
@@ -296,15 +318,15 @@ public class WeatherFragment extends Fragment {
 //                                    "Json parsing error: " + e.getMessage(), Toast.LENGTH_LONG).show();
 //                        }
 //                    });
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                }catch(ProtocolException e){
+                    e.printStackTrace();
+                }catch(MalformedURLException e){
+                    e.printStackTrace();
+                }catch(IOException e){
+                    e.printStackTrace();
+                }catch(JSONException e){
+                    e.printStackTrace();
+                }
 //            } else {
 //                runOnUiThread(new Runnable() {
 //                    @Override
@@ -316,47 +338,47 @@ public class WeatherFragment extends Fragment {
 //                    }
 //                });
 //            }
-            return resultJson;
+                return resultJson;
 
-        }
+            }
 
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
+            @Override
+            protected void onPostExecute (String result){
+                super.onPostExecute(result);
 
-            JSONObject dataJsonObj = null;
-            String secondName = "";
-            try {
-                dataJsonObj = new JSONObject(result);
-                //JSONArray friends = dataJsonObj.getJSONArray("friends");
+                JSONObject dataJsonObj = null;
+                String secondName = "";
+                try {
+                    dataJsonObj = new JSONObject(result);
+                    //JSONArray friends = dataJsonObj.getJSONArray("friends");
 
-                JSONObject weather = dataJsonObj.getJSONArray("weather").getJSONObject(0);
+                    JSONObject weather = dataJsonObj.getJSONArray("weather").getJSONObject(0);
 
 
-                description.setText(sharedPreferences.getString(sDescription, ""));
+                    description.setText(sharedPreferences.getString(sDescription, ""));
 //                description.setText(weather.getString("description"));
 //                    icon.setText(weather.getString("icon"));
 
-                JSONObject main = dataJsonObj.getJSONObject("main");
-                temp.setText(sharedPreferences.getString(sTemp, ""));
+                    JSONObject main = dataJsonObj.getJSONObject("main");
+                    temp.setText(sharedPreferences.getString(sTemp, ""));
 //                temp.setText(main.getString("temp"));
-                pressure.setText(sharedPreferences.getString(sPressure, ""));
+                    pressure.setText(sharedPreferences.getString(sPressure, ""));
 //                pressure.setText(main.getString("pressure"));
-                humidity.setText(sharedPreferences.getString(sHumidity, ""));
+                    humidity.setText(sharedPreferences.getString(sHumidity, ""));
 //                humidity.setText(main.getString("humidity"));
 
-                JSONObject wind = dataJsonObj.getJSONObject("wind");
-                speed.setText(sharedPreferences.getString(sSpeed, ""));
+                    JSONObject wind = dataJsonObj.getJSONObject("wind");
+                    speed.setText(sharedPreferences.getString(sSpeed, ""));
 //                speed.setText(wind.getString("speed"));
-                deg.setText(sharedPreferences.getString(sDeg, ""));
+                    deg.setText(sharedPreferences.getString(sDeg, ""));
 //                deg.setText(wind.getString("deg"));
 
 //                URL url = new URL("http://openweathermap.org/img/w/" + weather.getString("icon") + ".png");
 //                Log.v(LOG_TAG, "URL " + url);
 //
 //                Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-
-                icon.setImageBitmap(bmp);
+                    fon.setImageBitmap(bmpfon);
+                    icon.setImageBitmap(bmp);
 
 //                    description.setText(result.indexOf("description"));
 //                    temp.setText(result.indexOf("temp"));
@@ -365,10 +387,10 @@ public class WeatherFragment extends Fragment {
 //                    speed.setText(result.indexOf("speed"));
 //                    deg.setText(result.indexOf("deg"));
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
 
         private Bitmap downloadImage(String url) {
