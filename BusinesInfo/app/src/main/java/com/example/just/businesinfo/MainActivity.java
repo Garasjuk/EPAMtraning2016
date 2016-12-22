@@ -51,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-
-//        Log.d(TAG, "MainActivity: onRestart()");
     }
 
     @Override
@@ -62,8 +60,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
-
-            Log.v("Setings", "Setings: ");
             return true;
         }
         return super.onOptionsItemSelected(item);

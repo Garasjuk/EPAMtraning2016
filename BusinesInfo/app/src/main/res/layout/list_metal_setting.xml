@@ -21,22 +21,24 @@
         android:layout_height="wrap_content"
         android:id="@+id/name"
         android:layout_alignParentTop="true"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorRed"
         android:layout_alignLeft="@+id/nameEng"
-        android:layout_alignStart="@+id/nameEng" />
+        android:layout_alignStart="@+id/nameEng"
+        android:textSize="@dimen/text_currensy" />
 
     <TextView
         android:id="@+id/nameEng"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="2dip"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorRed"
         android:text="NameEng"
         android:layout_marginLeft="23dp"
         android:layout_marginStart="23dp"
         android:layout_below="@+id/name"
         android:layout_toRightOf="@+id/checkBox"
-        android:layout_toEndOf="@+id/checkBox" />
+        android:layout_toEndOf="@+id/checkBox"
+        android:textSize="@dimen/text_currensy" />
 
     <TextView
         android:text="Nominal"
@@ -44,9 +46,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/nominal"
         android:textColor="@color/colorPrimary"
-        android:layout_alignBaseline="@+id/checkBox"
+        android:textSize="@dimen/text_currensy"
+        android:textAlignment="textStart"
         android:layout_alignBottom="@+id/checkBox"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="72dp"
+        android:layout_marginEnd="72dp" />
 
 
 </RelativeLayout>

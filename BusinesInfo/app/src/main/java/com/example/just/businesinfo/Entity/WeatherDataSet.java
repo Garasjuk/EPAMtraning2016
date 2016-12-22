@@ -3,19 +3,12 @@ package com.example.just.businesinfo.Entity;
 public class WeatherDataSet {
 
     private int id;
-    //описиние
     private String description;
-    //температура
     private String temp;
-    //давление
     private String pressure;
-    //влажность
     private String humidity;
-    //скорость ветра
     private String speed;
-    //направление ветра
     private String deg;
-    //иконка
     private String icon;
 
     public WeatherDataSet(String description, String temp, String pressure, String humidity, String speed, String deg, String icon) {
@@ -32,7 +25,6 @@ public class WeatherDataSet {
     public int getId() {
         return id;
     }
-
 
     public String getDescription() {
         return description;

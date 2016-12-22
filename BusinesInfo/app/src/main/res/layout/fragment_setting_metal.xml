@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.just.businesinfo.fragments.SettingMetalFragment">
+    tools:context="com.example.just.businesinfo.fragments.SettingMetalFragment"
+    android:background="@drawable/gold_silver">
 
     <ListView
         android:id="@+id/list_metal_setting"

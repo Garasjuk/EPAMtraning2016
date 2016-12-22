@@ -19,10 +19,10 @@ public class MetalAdapterSetting extends BaseAdapter {
 
     public static final String LOG_TAG = "MetalAdapterSetting.java";
 
-    DatabaseHandler db;
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<MetalDataSet> objects;
+    private DatabaseHandler db;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<MetalDataSet> objects;
 
     public MetalAdapterSetting(Context context, ArrayList<MetalDataSet> products) {
         ctx = context;
@@ -31,6 +31,7 @@ public class MetalAdapterSetting extends BaseAdapter {
         db = new DatabaseHandler(context);
     }
 
+    // ToDo
     private class ViewHolder {
 
         CheckBox checkBox;
@@ -66,7 +67,6 @@ public class MetalAdapterSetting extends BaseAdapter {
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 CheckBox cb = (CheckBox) v;
-                Log.v(LOG_TAG, String.valueOf(cb.isChecked()));
             }
         });
 
@@ -74,17 +74,11 @@ public class MetalAdapterSetting extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.name)).setText(p.getName());
         ((TextView) convertView.findViewById(R.id.nameEng)).setText(p.getNameEng());
         ((TextView) convertView.findViewById(R.id.nominal)).setText(p.getNominal());
-//        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 
-//        Log.v("BOX_ADAPTER", "Status:" + p.getStatus() );
         if (p.getStatus().equals("true")) {
-            Log.v("id", Integer.toString(p.getId()));
 
             ((CheckBox) convertView.findViewById(R.id.checkBox)).setChecked(true);
-//            Log.v("BOX_ADAPTER", "true 3");
         } else {
-//            Log.v("BOX_ADAPTER", "false"  );
-
             ((CheckBox) convertView.findViewById(R.id.checkBox)).setChecked(false);
         }
 
@@ -93,15 +87,22 @@ public class MetalAdapterSetting extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (finalHolder.checkBox.isChecked()) {
-                    Log.v(LOG_TAG, String.valueOf(p.getId()) + " " + p.getName());
-                    db.updateMetalStatus(p.getId(), true);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.updateMetalStatus(p.getId(), true);
+                        }
+                    }).start();
                 } else {
-                    Log.v(LOG_TAG, String.valueOf(p.getId()) + " " + p.getName());
-                    db.updateMetalStatus(p.getId(), false);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            db.updateMetalStatus(p.getId(), false);
+                        }
+                    }).start();
                 }
             }
         });
-
         return convertView;
     }
 

@@ -9,7 +9,6 @@ import com.example.just.businesinfo.adapter.TabsAdapter;
 import com.example.just.businesinfo.fragments.SettingCurrencyFragment;
 import com.example.just.businesinfo.fragments.SettingMetalFragment;
 
-
 public class SettingActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = "SettingActivity.java";
@@ -29,7 +28,5 @@ public class SettingActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
         }
-
     }
-
 }

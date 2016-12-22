@@ -14,16 +14,12 @@ import com.example.just.businesinfo.connect.DatabaseHandler;
 
 import java.util.ArrayList;
 
-/**
- * Created by just on 27.10.2016.
- */
-
 public class MetalAdapter extends BaseAdapter {
 
-    DatabaseHandler db;
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<MetalDataSet> objects;
+    private DatabaseHandler db;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<MetalDataSet> objects;
 
     public MetalAdapter(Context context, ArrayList<MetalDataSet> products) {
         ctx = context;
@@ -64,7 +60,6 @@ public class MetalAdapter extends BaseAdapter {
         ((TextView) convertView.findViewById(R.id.Name)).setText(p.getName());
         ((TextView) convertView.findViewById(R.id.nameEng)).setText(p.getNameEng());
         ((TextView) convertView.findViewById(R.id.nominal)).setText(p.getNominal());
-//        Log.v("MetalFragment adapter", p.getNominal() );
         ((TextView) convertView.findViewById(R.id.byn)).setText(p.getCertificateRubles());
         ((TextView) convertView.findViewById(R.id.usa)).setText(p.getBanksDollars());
 

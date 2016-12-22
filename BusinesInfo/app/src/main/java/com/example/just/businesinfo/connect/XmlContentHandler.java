@@ -1,9 +1,7 @@
 package com.example.just.businesinfo.connect;
 
-import android.util.Log;
 
 import com.example.just.businesinfo.Entity.ParsedDataSet;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -11,40 +9,25 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class XmlContentHandler extends DefaultHandler {
+
     private static final String LOG_TAG = "XmlContentHandler";
-
-    // used to track of what tags are we
     private boolean inCurrency = false;
-
-    // accumulate the values
     private StringBuilder mStringBuilder = new StringBuilder();
-
-    // new object
     private ParsedDataSet mParsedDataSet = new ParsedDataSet();
-
-    // the list of data
     private List<ParsedDataSet> mParsedDataSetList = new ArrayList<ParsedDataSet>();
 
-    /*
-     * Called when parsed data is requested.
-     */
     public List<ParsedDataSet> getParsedData() {
-        Log.v(LOG_TAG, "Returning mParsedDataSetList");
         return this.mParsedDataSetList;
     }
 
     @Override
     public void startElement(String namespaceURI, String localName,
                              String qName, Attributes atts) throws SAXException {
-
         if (localName.equals("CurrencyFragment")) {
-            // meaning new data object will be made
             this.mParsedDataSet = new ParsedDataSet();
             this.inCurrency = true;
         }
-
     }
 
     @Override
@@ -55,27 +38,17 @@ public class XmlContentHandler extends DefaultHandler {
             this.mParsedDataSetList.add(mParsedDataSet);
             mParsedDataSet.setCurrency("CurrencyFragment");
             this.inCurrency = false;
-        }
-
-        else if (this.inCurrency == true && localName.equals("NumCode")) {
+        } else if (this.inCurrency == true && localName.equals("NumCode")) {
             mParsedDataSet.setNumCode(mStringBuilder.toString().trim());
-        }
-
-        else if (this.inCurrency == true && localName.equals("Name")) {
+        } else if (this.inCurrency == true && localName.equals("Name")) {
             mParsedDataSet.setName(mStringBuilder.toString().trim());
-        }
-
-        else if (this.inCurrency == true && localName.equals("CharCode")) {
+        } else if (this.inCurrency == true && localName.equals("CharCode")) {
             mParsedDataSet.setCharCode(mStringBuilder.toString().trim());
-        }
-
-        else if (this.inCurrency == true && localName.equals("Scale")) {
+        } else if (this.inCurrency == true && localName.equals("Scale")) {
             mParsedDataSet.setScale(mStringBuilder.toString().trim());
-        }
-        else if (this.inCurrency == true && localName.equals("Rate")) {
+        } else if (this.inCurrency == true && localName.equals("Rate")) {
             mParsedDataSet.setRate(mStringBuilder.toString().trim());
         }
-
         mStringBuilder.setLength(0);
     }
 

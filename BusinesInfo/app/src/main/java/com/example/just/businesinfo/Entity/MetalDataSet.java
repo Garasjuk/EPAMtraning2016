@@ -1,9 +1,5 @@
 package com.example.just.businesinfo.Entity;
 
-/**
- * Created by just on 18.10.2016.
- */
-
 public class MetalDataSet {
 
     private int id = 0;

@@ -20,14 +20,15 @@ android:padding="@dimen/activity_horizontal_margin">
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="2dip"
-    android:textColor="@color/colorAccent"
+    android:textColor="@color/colorRed"
     android:text="CharCode"
     android:layout_marginLeft="55dp"
     android:layout_marginStart="55dp"
     android:layout_alignBaseline="@+id/checkBox"
     android:layout_alignBottom="@+id/checkBox"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true" />
+    android:layout_alignParentStart="true"
+    android:textSize="@dimen/text_currensy" />
 
 
 </RelativeLayout>

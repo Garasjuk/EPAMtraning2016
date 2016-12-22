@@ -73,7 +73,6 @@ public class HttpClient {
     public interface ResultConverter<Result> {
 
         Result convert(InputStream inputStream);
-
     }
 
     public <Result> Result getResult(String url, ResultConverter<Result> resultConverter) throws IOException {
@@ -101,6 +100,4 @@ public class HttpClient {
         os.write(outputInBytes);
         os.close();
     }
-
-
 }

@@ -1,11 +1,6 @@
 package com.example.just.businesinfo.Entity;
 
-/**
- * Created by just on 18.10.2016.
- */
-
 public class IngotDataSet {
-
 
     private int id = 0;
     private String metalId = null;
