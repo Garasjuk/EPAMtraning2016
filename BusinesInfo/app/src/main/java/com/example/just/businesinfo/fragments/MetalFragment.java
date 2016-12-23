@@ -10,15 +10,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.just.businesinfo.Entity.IngotDataSet;
@@ -71,8 +68,6 @@ public class MetalFragment extends Fragment {
                                 parseXmlMetal = new MetalFragment.ParseXmlMetal();
                                 parseXmlMetal.execute();
                             }
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -86,10 +81,11 @@ public class MetalFragment extends Fragment {
             @Override
             public void onSuccess(Integer createTableMetal) {
                 try {
-                    if (createTableMetal >= 1) {
-                    } else if (createTableMetal <= 1) {
-                        parseXmlMetal = new MetalFragment.ParseXmlMetal();
-                        parseXmlMetal.execute();
+                    if (createTableMetal < 1) {
+                        if (createTableMetal <= 1) {
+                            parseXmlMetal = new ParseXmlMetal();
+                            parseXmlMetal.execute();
+                        }
                     }
                     loadDBMetal = new MetalFragment.LoadDBMetal();
                     loadDBMetal.execute();
@@ -137,29 +133,23 @@ public class MetalFragment extends Fragment {
     public static boolean hasConnection(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiInfo = cm.getActiveNetworkInfo();
-        if (wifiInfo != null && wifiInfo.isConnectedOrConnecting()) {
-            return true;
-        }
-        return false;
+        return wifiInfo != null && wifiInfo.isConnectedOrConnecting();
     }
-
 
     public class ParseXmlMetal extends AsyncTask<Void, Void, ArrayList<MetalDataSet>> {
 
-        public static final String LOG_TAG = "MetalFragment.java";
-
         @Override
         protected ArrayList<MetalDataSet> doInBackground(Void... argo0) {
-            ArrayList<MetalDataSet> metalDataSetResult = new ArrayList<MetalDataSet>();
+            ArrayList<MetalDataSet> metalDataSetResult = new ArrayList<>();
             try {
                 Calendar mcurrentDate = Calendar.getInstance();
                 int mYear = mcurrentDate.get(Calendar.YEAR);
                 int mMonth = mcurrentDate.get(Calendar.MONTH) + 1;
                 int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-                InputSource inputSourceMetal = null;
+                InputSource inputSourceMetal;
 
-                InputSource inputSourceIngot = null;
+                InputSource inputSourceIngot;
 
                 URL urlMetal = new URL("http://www.nbrb.by/Services/XmlMetalsRef.aspx");
                 URL urlIngot = new URL("http://www.nbrb.by/Services/XmlIngots.aspx?onDate=" + mMonth + "/" + mDay + "/" + mYear);
@@ -189,19 +179,17 @@ public class MetalFragment extends Fragment {
 
                 xmlReaderIngot.parse(inputSourceIngot);
 
-                List<MetalDataSet> metalDataSets = new ArrayList<MetalDataSet>();
+                List<MetalDataSet> metalDataSets;
                 metalDataSets = xmlContentHandlerMetal.getMetalData();
                 int metalSize = metalDataSets.size();
 
-                List<IngotDataSet> ingotDataSets = new ArrayList<IngotDataSet>();
+                List<IngotDataSet> ingotDataSets;
                 ingotDataSets = xmlContentHandlerIngot.getIngotData();
                 int ingotSize = ingotDataSets.size();
 
                 Iterator<MetalDataSet> i = metalDataSets.iterator();
-                MetalDataSet dataItemMetal;
 
                 Iterator<IngotDataSet> j = ingotDataSets.iterator();
-                IngotDataSet dataItemIngot;
 
                 for (int a = 0; a < metalSize; a++)
                     for (int b = 0; b < ingotSize; b++) {
@@ -215,8 +203,6 @@ public class MetalFragment extends Fragment {
                         }
                     }
                 metalDataSetResult = db.getAllMetal();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -235,15 +221,11 @@ public class MetalFragment extends Fragment {
 
     public class LoadDBMetal extends AsyncTask<Void, Void, ArrayList<MetalDataSet>> {
 
-        public static final String LOG_TAG = "MetalFragment.java";
-
         @Override
         protected ArrayList<MetalDataSet> doInBackground(Void... argo0) {
             ArrayList<MetalDataSet> metalDataSets = new ArrayList<>();
             try {
                 metalDataSets = db.getAllMetal();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }

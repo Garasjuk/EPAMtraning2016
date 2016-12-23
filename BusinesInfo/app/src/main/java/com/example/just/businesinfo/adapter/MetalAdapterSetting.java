@@ -1,7 +1,6 @@
 package com.example.just.businesinfo.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +16,13 @@ import java.util.ArrayList;
 
 public class MetalAdapterSetting extends BaseAdapter {
 
-    public static final String LOG_TAG = "MetalAdapterSetting.java";
-
     private DatabaseHandler db;
-    private Context ctx;
     private LayoutInflater lInflater;
     private ArrayList<MetalDataSet> objects;
 
     public MetalAdapterSetting(Context context, ArrayList<MetalDataSet> products) {
-        ctx = context;
         objects = products;
-        lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        lInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         db = new DatabaseHandler(context);
     }
 
@@ -55,7 +50,7 @@ public class MetalAdapterSetting extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = null;
+        ViewHolder holder;
         if (convertView == null) {
             convertView = lInflater.inflate(R.layout.list_metal_setting, parent, false);
         }
@@ -66,7 +61,6 @@ public class MetalAdapterSetting extends BaseAdapter {
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
             }
         });
 
@@ -106,7 +100,7 @@ public class MetalAdapterSetting extends BaseAdapter {
         return convertView;
     }
 
-    MetalDataSet getMetalDataSet(int position) {
+    private MetalDataSet getMetalDataSet(int position) {
         return ((MetalDataSet) getItem(position));
     }
 }

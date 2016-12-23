@@ -9,11 +9,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +34,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class WeatherFragment extends Fragment {
 
@@ -60,14 +54,11 @@ public class WeatherFragment extends Fragment {
     GoogleMap mMap;
     Bitmap bmp = null;
     Bitmap bmpfon = null;
-    public static final String LOG_TAG = "WeatherFragment.java";
     GPSTracker gps;
-    Button btn1;
     TextView description, temp, pressure, humidity, speed, deg;
     ImageView icon, fon;
     private double latitude;
     private double longitude;
-    private String appid = "0fac5609a85a713aab5b80d5ebdfd9fb";
     GetWeather getWeather;
 
     @Override
@@ -80,8 +71,6 @@ public class WeatherFragment extends Fragment {
         mapView.onCreate(savedInstanceState);
 
         mMap = mapView.getMap();
-
-        btn1 = (Button) view.findViewById(R.id.btn1);
 
         description = (TextView) view.findViewById(R.id.description);
         temp = (TextView) view.findViewById(R.id.temp);
@@ -100,27 +89,6 @@ public class WeatherFragment extends Fragment {
         speed.setText(sharedPreferences.getString(sSpeed, ""));
         deg.setText(sharedPreferences.getString(sDeg, ""));
         icon.setImageBitmap(bmp);
-
-        btn1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-//                gps = new GPSTracker(getActivity());
-//
-//                if (gps.canGetLocation()) {
-//                    latitude = gps.getLatitude();
-//                    longitude = gps.getLongitude();
-//                    Toast.makeText(getActivity(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-//                } else {
-//                    gps.showSettingsAlert();
-//                }
-//                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 12);
-//                mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("You are here"));
-//                mMap.animateCamera(cameraUpdate);
-//                getWeather = new GetWeather();
-//                getWeather.execute();
-            }
-        });
 
         mySwipeRefreshLayout.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
@@ -141,8 +109,6 @@ public class WeatherFragment extends Fragment {
                             getWeather = new GetWeather();
                             getWeather.execute();
 
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -180,8 +146,8 @@ public class WeatherFragment extends Fragment {
         @Override
         protected String doInBackground(Void... arg0) {
 
-            ArrayList<HashMap<String, String>> weatherList = new ArrayList<>();
             try {
+                String appid = "0fac5609a85a713aab5b80d5ebdfd9fb";
                 URL url = new URL("http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=metric&lang=ru&appid=" + appid);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -195,8 +161,7 @@ public class WeatherFragment extends Fragment {
                 reader = new BufferedReader(new InputStreamReader(inputStream));
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    buffer.append(line + "\n");
-                    Log.v(LOG_TAG, "line " + line);
+                    buffer.append(line).append("\n");
                 }
                 resultJson = buffer.toString();
 
@@ -239,13 +204,7 @@ public class WeatherFragment extends Fragment {
                 bmpfon = downloadImage(urlbmp);
                 String urlstr = "http://openweathermap.org/img/w/" + weather.getString("icon") + ".png";
                 bmp = downloadImage(urlstr);
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
             return resultJson;
@@ -255,36 +214,24 @@ public class WeatherFragment extends Fragment {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            JSONObject dataJsonObj = null;
-            String secondName = "";
-            try {
-                dataJsonObj = new JSONObject(result);
+            description.setText(sharedPreferences.getString(sDescription, ""));
 
-                JSONObject weather = dataJsonObj.getJSONArray("weather").getJSONObject(0);
+            temp.setText(sharedPreferences.getString(sTemp, ""));
+            pressure.setText(sharedPreferences.getString(sPressure, ""));
+            humidity.setText(sharedPreferences.getString(sHumidity, ""));
 
-                description.setText(sharedPreferences.getString(sDescription, ""));
+            speed.setText(sharedPreferences.getString(sSpeed, ""));
+            deg.setText(sharedPreferences.getString(sDeg, ""));
 
-                JSONObject main = dataJsonObj.getJSONObject("main");
-                temp.setText(sharedPreferences.getString(sTemp, ""));
-                pressure.setText(sharedPreferences.getString(sPressure, ""));
-                humidity.setText(sharedPreferences.getString(sHumidity, ""));
+            fon.setImageBitmap(bmpfon);
+            icon.setImageBitmap(bmp);
+            mySwipeRefreshLayout.setRefreshing(false);
 
-                JSONObject wind = dataJsonObj.getJSONObject("wind");
-                speed.setText(sharedPreferences.getString(sSpeed, ""));
-                deg.setText(sharedPreferences.getString(sDeg, ""));
-
-                fon.setImageBitmap(bmpfon);
-                icon.setImageBitmap(bmp);
-                mySwipeRefreshLayout.setRefreshing(false);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
 
         private Bitmap downloadImage(String url) {
             Bitmap bitmap = null;
-            InputStream stream = null;
+            InputStream stream;
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             bmOptions.inSampleSize = 1;
             try {

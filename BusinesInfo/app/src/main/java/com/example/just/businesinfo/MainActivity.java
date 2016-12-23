@@ -3,7 +3,6 @@ package com.example.just.businesinfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,19 +16,15 @@ import com.example.just.businesinfo.fragments.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TabHost mTabHost;
-    private ViewPager mViewPager;
-    private TabsAdapter mTabsAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+        TabHost mTabHost = (TabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup();
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.pager);
+        TabsAdapter mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
         mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator(getString(R.string.currencyTab)), CurrencyFragment.class, null);
         mTabsAdapter.addTab(mTabHost.newTabSpec("contacts").setIndicator(getString(R.string.metalTab)), MetalFragment.class, null);
         mTabsAdapter.addTab(mTabHost.newTabSpec("weather").setIndicator(getString(R.string.weatherTab)), WeatherFragment.class, null);

@@ -11,8 +11,6 @@ import com.example.just.businesinfo.fragments.SettingMetalFragment;
 
 public class SettingActivity extends AppCompatActivity {
 
-    public static final String LOG_TAG = "SettingActivity.java";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

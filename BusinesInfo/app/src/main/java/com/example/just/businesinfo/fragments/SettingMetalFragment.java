@@ -3,12 +3,10 @@ package com.example.just.businesinfo.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,7 +20,6 @@ import java.util.ArrayList;
 
 public class SettingMetalFragment extends Fragment {
 
-    public static final String LOG_TAG = "SettingActivity.java";
     DatabaseHandler db;
     private ListView lv;
     SettingMetalFragment.GetDBSettingMetal getDBSettingMetal;
@@ -33,7 +30,6 @@ public class SettingMetalFragment extends Fragment {
 
         lv = (ListView) view.findViewById(R.id.list_metal_setting);
         db = new DatabaseHandler(getActivity());
-        CheckBox cb = (CheckBox) view.findViewById(R.id.checkBox);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
@@ -45,8 +41,6 @@ public class SettingMetalFragment extends Fragment {
         try {
             getDBSettingMetal = new SettingMetalFragment.GetDBSettingMetal();
             getDBSettingMetal.execute();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,15 +49,11 @@ public class SettingMetalFragment extends Fragment {
 
     public class GetDBSettingMetal extends AsyncTask<Void, Void, ArrayList<MetalDataSet>> {
 
-        public static final String LOG_TAG = "SettingMetalFragment.java";
-
         @Override
         protected ArrayList<MetalDataSet> doInBackground(Void... argo0) {
-            ArrayList<MetalDataSet> metalDataSet = new ArrayList<MetalDataSet>();
+            ArrayList<MetalDataSet> metalDataSet = new ArrayList<>();
             try {
                 metalDataSet = db.getAllMetalSetting();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }

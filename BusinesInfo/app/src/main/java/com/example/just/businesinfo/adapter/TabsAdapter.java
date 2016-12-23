@@ -19,24 +19,22 @@ public class TabsAdapter extends FragmentPagerAdapter implements TabHost.OnTabCh
     private final Context mContext;
     private final TabHost mTabHost;
     private final ViewPager mViewPager;
-    private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+    private final ArrayList<TabInfo> mTabs = new ArrayList<>();
 
-    static final class TabInfo {
-        private final String tag;
+    private static final class TabInfo {
         private final Class<?> clss;
         private final Bundle args;
 
         TabInfo(final String _tag, final Class<?> _class, final Bundle _args) {
-            tag = _tag;
             clss = _class;
             args = _args;
         }
     }
 
-    static class DummyTabFactory implements TabHost.TabContentFactory {
+    private static class DummyTabFactory implements TabHost.TabContentFactory {
         private final Context mContext;
 
-        public DummyTabFactory(final Context context) {
+        DummyTabFactory(final Context context) {
             mContext = context;
         }
 

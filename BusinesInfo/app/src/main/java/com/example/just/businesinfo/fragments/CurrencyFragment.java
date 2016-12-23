@@ -10,14 +10,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -64,15 +61,12 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
 
                         try {
                             if (!hasConnection(getActivity())) {
-                                Toast.makeText(getActivity(), "Network is not connected", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), R.string.Network_is_not_conn, Toast.LENGTH_LONG).show();
                                 mySwipeRefreshLayout.setRefreshing(false);
                             } else {
                                 parseXmlAsyn = new ParseXmlAsync();
                                 parseXmlAsyn.execute();
                             }
-
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -86,13 +80,14 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSuccess(Integer createTableCurrency) {
                 try {
-                    if (createTableCurrency >= 1) {
-                    } else if (createTableCurrency <= 1) {
-                        dialog = ProgressDialog.show(getActivity(), "", "Загрузка. Пожалуйста подождите...", true);
-                        parseXmlAsyn = new ParseXmlAsync();
-                        parseXmlAsyn.execute();
+                    if (createTableCurrency < 1) {
+                        if (createTableCurrency <= 1) {
+                            dialog = ProgressDialog.show(getActivity(), "", getString(R.string.Loading), true);
+                            parseXmlAsyn = new ParseXmlAsync();
+                            parseXmlAsyn.execute();
+                        }
                     }
-                    dialog = ProgressDialog.show(getActivity(), "", "Загрузка. Пожалуйста подождите...", true);
+                    dialog = ProgressDialog.show(getActivity(), "", getString(R.string.Loading), true);
                     loadDBCurrency = new LoadDBCurrency();
                     loadDBCurrency.execute();
                 } catch (Exception e) {
@@ -136,8 +131,6 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
 
     public class ParseXmlAsync extends AsyncTask<Void, Void, List<HashMap<String, String>>> {
 
-        public static final String LOG_TAG = "MainActivity.java";
-
         @Override
         protected List<HashMap<String, String>> doInBackground(Void... argo0) {
             List<HashMap<String, String>> currencyDataSetResult = new ArrayList<>();
@@ -152,7 +145,6 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
 
                 URL url = new URL("http://www.nbrb.by/Services/XmlExRates.aspx?ondate=" + mMonth + "/" + mDay + "/" + mYear);
                 inputSource = new InputSource(url.openStream());
-                Log.v(LOG_TAG, "Url: " + url);
 
                 SAXParserFactory saxParserFactory = SAXParserFactory
                         .newInstance();
@@ -175,15 +167,6 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
 
                     dataItem = (ParsedDataSet) i.next();
 
-                    String currency = dataItem.getCurrency();
-                    Log.v(LOG_TAG, "currency: " + currency);
-
-                    Log.v(LOG_TAG, "NumCode: " + dataItem.getNumCode());
-                    Log.v(LOG_TAG, "CharCode: " + dataItem.getCharCode());
-                    Log.v(LOG_TAG, "Scale: " + dataItem.getScale());
-                    Log.v(LOG_TAG, "Name: " + dataItem.getName());
-                    Log.v(LOG_TAG, "Rate: " + dataItem.getRate());
-
                     ParsedDataSet parsedDataSets = db.getParsedDataSetByName(dataItem.getNumCode());
                     if (parsedDataSets != null) {
                         db.updateDataSet(dataItem.getRate(), dataItem.getNumCode());
@@ -192,8 +175,6 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
                     }
                 }
                 currencyDataSetResult = db.getAllContactsHash();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -215,16 +196,12 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
 
     public class LoadDBCurrency extends AsyncTask<Void, Void, List<HashMap<String, String>>> {
 
-        public static final String LOG_TAG = "CurrencyFragment.java";
-
         @Override
         protected List<HashMap<String, String>> doInBackground(Void... argo0) {
             List<HashMap<String, String>> parsedDataSets = new ArrayList<>();
 
             try {
                 parsedDataSets = db.getAllContactsHash();
-            } catch (NullPointerException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }

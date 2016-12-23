@@ -5,32 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.just.businesinfo.Entity.MetalDataSet;
 import com.example.just.businesinfo.R;
-import com.example.just.businesinfo.connect.DatabaseHandler;
-
 import java.util.ArrayList;
 
 public class MetalAdapter extends BaseAdapter {
 
-    private DatabaseHandler db;
-    private Context ctx;
     private LayoutInflater lInflater;
     private ArrayList<MetalDataSet> objects;
 
     public MetalAdapter(Context context, ArrayList<MetalDataSet> products) {
-        ctx = context;
         objects = products;
-        lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        db = new DatabaseHandler(context);
-    }
-
-    private class ViewHolder {
-
-        CheckBox checkBox;
+        lInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -51,7 +39,6 @@ public class MetalAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = null;
         if (convertView == null) {
             convertView = lInflater.inflate(R.layout.list_metal, parent, false);
         }
@@ -66,7 +53,7 @@ public class MetalAdapter extends BaseAdapter {
         return convertView;
     }
 
-    MetalDataSet getMetalDataSet(int position) {
+    private MetalDataSet getMetalDataSet(int position) {
         return ((MetalDataSet) getItem(position));
     }
 }

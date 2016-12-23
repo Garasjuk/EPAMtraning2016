@@ -17,5 +17,7 @@
     <string name="weatherTab">Weather</string>
     <string name="SettingMetalTab">Metal</string>
     <string name="SettingCurrencyTab">Currency</string>
+    <string name="Network_is_not_conn">Network is not connected</string>
+    <string name="Loading">Загрузка. Пожалуйста подождите...</string>
 
 </resources>

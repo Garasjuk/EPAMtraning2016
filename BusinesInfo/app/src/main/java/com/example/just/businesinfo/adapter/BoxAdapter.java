@@ -1,7 +1,7 @@
 package com.example.just.businesinfo.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +18,12 @@ import java.util.ArrayList;
 public class BoxAdapter extends BaseAdapter {
 
     private DatabaseHandler db;
-    private Context ctx;
     private LayoutInflater lInflater;
     private ArrayList<ParsedDataSet> objects;
 
     public BoxAdapter(Context context, ArrayList<ParsedDataSet> products) {
-        ctx = context;
         objects = products;
-        lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        lInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         db = new DatabaseHandler(context);
     }
 
@@ -49,10 +47,11 @@ public class BoxAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("CutPasteId")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = null;
+        ViewHolder holder;
         if (convertView == null) {
             convertView = lInflater.inflate(R.layout.list_setting, parent, false);
         }
@@ -63,13 +62,12 @@ public class BoxAdapter extends BaseAdapter {
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                CheckBox cb = (CheckBox) v;
             }
         });
 
         final ParsedDataSet p = getParsedDataSet(position);
         ((TextView) convertView.findViewById(R.id.nameEng)).setText(p.getCharCode());
-        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
+//        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 
         if (p.getStatus().equals("true")) {
             ((CheckBox) convertView.findViewById(R.id.checkBox)).setChecked(true);
@@ -102,7 +100,7 @@ public class BoxAdapter extends BaseAdapter {
         return convertView;
     }
 
-    ParsedDataSet getParsedDataSet(int position) {
+    private ParsedDataSet getParsedDataSet(int position) {
         return ((ParsedDataSet) getItem(position));
     }
 }

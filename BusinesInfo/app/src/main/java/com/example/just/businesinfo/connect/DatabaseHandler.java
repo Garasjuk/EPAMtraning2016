@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.WorkerThread;
-import android.util.Log;
 
 import com.example.just.businesinfo.Entity.IngotDataSet;
 import com.example.just.businesinfo.Entity.MetalDataSet;
@@ -145,7 +144,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public ArrayList<ParsedDataSet> getAllCurrencySetting() {
-        ArrayList<ParsedDataSet> carsedDataSetList = new ArrayList<ParsedDataSet>();
+        ArrayList<ParsedDataSet> carsedDataSetList = new ArrayList<>();
         String selectQuery = SELECT_getAllCurrencySetting + TABLE_CURRENCY;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -164,7 +163,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public ArrayList<MetalDataSet> getAllMetalSetting() {
-        ArrayList<MetalDataSet> metalDataSetList = new ArrayList<MetalDataSet>();
+        ArrayList<MetalDataSet> metalDataSetList = new ArrayList<>();
         String selectQuery = SELECT_getAllMetalSetting + TABLE_METAL;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -227,7 +226,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public ArrayList<MetalDataSet> getAllMetal() {
-        ArrayList<MetalDataSet> metalDataSetArrayList = new ArrayList<MetalDataSet>();
+        ArrayList<MetalDataSet> metalDataSetArrayList = new ArrayList<>();
         String selectQuery = SELECT_getAllMetal + TABLE_METAL + " WHERE status = 'true'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

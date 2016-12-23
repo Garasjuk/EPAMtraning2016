@@ -1,9 +1,6 @@
 package com.example.just.businesinfo.connect;
 
-import android.util.Log;
-
 import com.example.just.businesinfo.Entity.IngotDataSet;
-import com.example.just.businesinfo.Entity.MetalDataSet;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -13,14 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XmlContentHandlerIngot extends DefaultHandler {
-    private static final String LOG_TAG = "XmlContentHandlerIngot";
     private boolean inIngotsPrices = false;
     private StringBuilder mStringBuilder = new StringBuilder();
     private IngotDataSet mIngotDataSet = new IngotDataSet();
-    private List<IngotDataSet> mIngotDataSetList = new ArrayList<IngotDataSet>();
+    private List<IngotDataSet> mIngotDataSetList = new ArrayList<>();
 
     public List<IngotDataSet> getIngotData() {
-        Log.v(LOG_TAG, "Returning mIngotDataSetList");
         return this.mIngotDataSetList;
     }
 
@@ -40,12 +35,12 @@ public class XmlContentHandlerIngot extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName)
             throws SAXException {
 
-        if (this.inIngotsPrices == true && localName.equals("IngotsPrices")) {
+        if (this.inIngotsPrices && localName.equals("IngotsPrices")) {
             this.mIngotDataSetList.add(mIngotDataSet);
             this.inIngotsPrices = false;
-        } else if (this.inIngotsPrices == true && localName.equals("CertificateRubles")) {
+        } else if (this.inIngotsPrices && localName.equals("CertificateRubles")) {
             mIngotDataSet.setCertificateRubles(mStringBuilder.toString().trim());
-        } else if (this.inIngotsPrices == true && localName.equals("BanksDollars")) {
+        } else if (this.inIngotsPrices && localName.equals("BanksDollars")) {
             mIngotDataSet.setBanksDollars(mStringBuilder.toString().trim());
         }
         mStringBuilder.setLength(0);

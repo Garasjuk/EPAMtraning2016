@@ -1,6 +1,5 @@
 package com.example.just.businesinfo.connect;
 
-
 import com.example.just.businesinfo.Entity.ParsedDataSet;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -11,11 +10,10 @@ import java.util.List;
 
 public class XmlContentHandler extends DefaultHandler {
 
-    private static final String LOG_TAG = "XmlContentHandler";
     private boolean inCurrency = false;
     private StringBuilder mStringBuilder = new StringBuilder();
     private ParsedDataSet mParsedDataSet = new ParsedDataSet();
-    private List<ParsedDataSet> mParsedDataSetList = new ArrayList<ParsedDataSet>();
+    private List<ParsedDataSet> mParsedDataSetList = new ArrayList<>();
 
     public List<ParsedDataSet> getParsedData() {
         return this.mParsedDataSetList;
@@ -34,19 +32,19 @@ public class XmlContentHandler extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName)
             throws SAXException {
 
-        if (this.inCurrency == true && localName.equals("CurrencyFragment")) {
+        if (this.inCurrency && localName.equals("CurrencyFragment")) {
             this.mParsedDataSetList.add(mParsedDataSet);
             mParsedDataSet.setCurrency("CurrencyFragment");
             this.inCurrency = false;
-        } else if (this.inCurrency == true && localName.equals("NumCode")) {
+        } else if (this.inCurrency && localName.equals("NumCode")) {
             mParsedDataSet.setNumCode(mStringBuilder.toString().trim());
-        } else if (this.inCurrency == true && localName.equals("Name")) {
+        } else if (this.inCurrency && localName.equals("Name")) {
             mParsedDataSet.setName(mStringBuilder.toString().trim());
-        } else if (this.inCurrency == true && localName.equals("CharCode")) {
+        } else if (this.inCurrency && localName.equals("CharCode")) {
             mParsedDataSet.setCharCode(mStringBuilder.toString().trim());
-        } else if (this.inCurrency == true && localName.equals("Scale")) {
+        } else if (this.inCurrency && localName.equals("Scale")) {
             mParsedDataSet.setScale(mStringBuilder.toString().trim());
-        } else if (this.inCurrency == true && localName.equals("Rate")) {
+        } else if (this.inCurrency && localName.equals("Rate")) {
             mParsedDataSet.setRate(mStringBuilder.toString().trim());
         }
         mStringBuilder.setLength(0);

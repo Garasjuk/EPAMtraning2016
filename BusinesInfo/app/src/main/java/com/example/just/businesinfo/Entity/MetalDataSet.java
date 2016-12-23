@@ -73,10 +73,6 @@ public class MetalDataSet {
         this.nameEng = nameEng;
     }
 
-    public String getMetalId() {
-        return metalId;
-    }
-
     public void setMetalId(String metalId) {
         this.metalId = metalId;
     }

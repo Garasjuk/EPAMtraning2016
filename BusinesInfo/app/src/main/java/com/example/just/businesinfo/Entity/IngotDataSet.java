@@ -2,20 +2,12 @@ package com.example.just.businesinfo.Entity;
 
 public class IngotDataSet {
 
-    private int id = 0;
     private String metalId = null;
     private String nominal = null;
     private String banksDollars = null;
     private String certificateRubles = null;
 
     public IngotDataSet() {
-    }
-
-    public IngotDataSet(String metalId, String nominal, String banksDollars, String certificateRubles) {
-        this.metalId = metalId;
-        this.nominal = nominal;
-        this.banksDollars = banksDollars;
-        this.certificateRubles = certificateRubles;
     }
 
     public IngotDataSet(String nominal, String banksDollars, String certificateRubles) {
@@ -26,7 +18,7 @@ public class IngotDataSet {
 
 
     public int getId() {
-        return id;
+        return 0;
     }
 
     public String getMetalId() {
