@@ -67,7 +67,6 @@ public class BoxAdapter extends BaseAdapter {
 
         final ParsedDataSet p = getParsedDataSet(position);
         ((TextView) convertView.findViewById(R.id.nameEng)).setText(p.getCharCode());
-//        CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.checkBox);
 
         if (p.getStatus().equals("true")) {
             ((CheckBox) convertView.findViewById(R.id.checkBox)).setChecked(true);

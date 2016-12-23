@@ -34,7 +34,6 @@ import org.xml.sax.XMLReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.parsers.SAXParser;
@@ -62,7 +61,7 @@ public class MetalFragment extends Fragment {
                     public void onRefresh() {
                         try {
                             if (!hasConnection(getActivity())) {
-                                Toast.makeText(getActivity(), "Network is not connected", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), R.string.Network_is_not_conn, Toast.LENGTH_LONG).show();
                                 mySwipeRefreshLayout.setRefreshing(false);
                             } else {
                                 parseXmlMetal = new MetalFragment.ParseXmlMetal();
@@ -151,8 +150,8 @@ public class MetalFragment extends Fragment {
 
                 InputSource inputSourceIngot;
 
-                URL urlMetal = new URL("http://www.nbrb.by/Services/XmlMetalsRef.aspx");
-                URL urlIngot = new URL("http://www.nbrb.by/Services/XmlIngots.aspx?onDate=" + mMonth + "/" + mDay + "/" + mYear);
+                URL urlMetal = new URL(getString(R.string.MetalURL));
+                URL urlIngot = new URL(getString(R.string.IngotURL) + mMonth + "/" + mDay + "/" + mYear);
 
                 inputSourceMetal = new InputSource(urlMetal.openStream());
 
@@ -186,10 +185,6 @@ public class MetalFragment extends Fragment {
                 List<IngotDataSet> ingotDataSets;
                 ingotDataSets = xmlContentHandlerIngot.getIngotData();
                 int ingotSize = ingotDataSets.size();
-
-                Iterator<MetalDataSet> i = metalDataSets.iterator();
-
-                Iterator<IngotDataSet> j = ingotDataSets.iterator();
 
                 for (int a = 0; a < metalSize; a++)
                     for (int b = 0; b < ingotSize; b++) {

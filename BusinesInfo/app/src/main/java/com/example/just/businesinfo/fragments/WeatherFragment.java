@@ -99,12 +99,12 @@ public class WeatherFragment extends Fragment {
                             if (gps.canGetLocation()) {
                                 latitude = gps.getLatitude();
                                 longitude = gps.getLongitude();
-                                Toast.makeText(getActivity(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), getString(R.string.You_location) + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
                             } else {
                                 gps.showSettingsAlert();
                             }
                             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 12);
-                            mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("You are here"));
+                            mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title(getString(R.string.You_are_here)));
                             mMap.animateCamera(cameraUpdate);
                             getWeather = new GetWeather();
                             getWeather.execute();
@@ -147,8 +147,8 @@ public class WeatherFragment extends Fragment {
         protected String doInBackground(Void... arg0) {
 
             try {
-                String appid = "0fac5609a85a713aab5b80d5ebdfd9fb";
-                URL url = new URL("http://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=metric&lang=ru&appid=" + appid);
+                String appid = getString(R.string.appid);
+                URL url = new URL(getString(R.string.WeatherURL) + latitude + "&lon=" + longitude + "&units=metric&lang=ru&appid=" + appid);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -200,9 +200,9 @@ public class WeatherFragment extends Fragment {
                 edDeg.putString(sDeg, wind.getString("deg"));
                 edDeg.commit();
 
-                String urlbmp = "http://www.grodlait.by/images/weather/" + weather.get("icon") + ".png";
+                String urlbmp = getString(R.string.ImageURL) + weather.get("icon") + ".png";
                 bmpfon = downloadImage(urlbmp);
-                String urlstr = "http://openweathermap.org/img/w/" + weather.getString("icon") + ".png";
+                String urlstr = getString(R.string.IconULR) + weather.getString("icon") + ".png";
                 bmp = downloadImage(urlstr);
             } catch (IOException | JSONException e) {
                 e.printStackTrace();

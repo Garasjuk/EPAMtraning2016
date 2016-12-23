@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BusinesInfo</string>
+    <string name="app_name">BusinessInfo</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -19,5 +19,14 @@
     <string name="SettingCurrencyTab">Currency</string>
     <string name="Network_is_not_conn">Network is not connected</string>
     <string name="Loading">Загрузка. Пожалуйста подождите...</string>
+    <string name="CurrencyURL">http://www.nbrb.by/Services/XmlExRates.aspx?ondate=</string>
+    <string name="MetalURL">http://www.nbrb.by/Services/XmlMetalsRef.aspx</string>
+    <string name="IngotURL">http://www.nbrb.by/Services/XmlIngots.aspx?onDate=</string>
+    <string name="You_location">"Your Location is - \nLat: "</string>
+    <string name="You_are_here">You are here</string>
+    <string name="appid">0fac5609a85a713aab5b80d5ebdfd9fb</string>
+    <string name="WeatherURL">http://api.openweathermap.org/data/2.5/weather?lat=</string>
+    <string name="ImageURL">http://www.grodlait.by/images/weather/</string>
+    <string name="IconULR">http://openweathermap.org/img/w/</string>
 
 </resources>

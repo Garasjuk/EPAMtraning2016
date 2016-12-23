@@ -141,9 +141,9 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
                 int mMonth = mcurrentDate.get(Calendar.MONTH) + 1;
                 int mDay = mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-                InputSource inputSource = null;
+                InputSource inputSource;
 
-                URL url = new URL("http://www.nbrb.by/Services/XmlExRates.aspx?ondate=" + mMonth + "/" + mDay + "/" + mYear);
+                URL url = new URL(getString(R.string.CurrencyURL) + mMonth + "/" + mDay + "/" + mYear);
                 inputSource = new InputSource(url.openStream());
 
                 SAXParserFactory saxParserFactory = SAXParserFactory
@@ -165,7 +165,7 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
 
                 while (i.hasNext()) {
 
-                    dataItem = (ParsedDataSet) i.next();
+                    dataItem = i.next();
 
                     ParsedDataSet parsedDataSets = db.getParsedDataSetByName(dataItem.getNumCode());
                     if (parsedDataSets != null) {
