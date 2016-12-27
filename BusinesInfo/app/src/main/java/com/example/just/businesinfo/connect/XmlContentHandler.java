@@ -22,7 +22,7 @@ public class XmlContentHandler extends DefaultHandler {
     @Override
     public void startElement(String namespaceURI, String localName,
                              String qName, Attributes atts) throws SAXException {
-        if (localName.equals("CurrencyFragment")) {
+        if (localName.equals("Currency")) {
             this.mParsedDataSet = new ParsedDataSet();
             this.inCurrency = true;
         }
@@ -32,9 +32,9 @@ public class XmlContentHandler extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName)
             throws SAXException {
 
-        if (this.inCurrency && localName.equals("CurrencyFragment")) {
+        if (this.inCurrency && localName.equals("Currency")) {
             this.mParsedDataSetList.add(mParsedDataSet);
-            mParsedDataSet.setCurrency("CurrencyFragment");
+            mParsedDataSet.setCurrency("Currency");
             this.inCurrency = false;
         } else if (this.inCurrency && localName.equals("NumCode")) {
             mParsedDataSet.setNumCode(mStringBuilder.toString().trim());

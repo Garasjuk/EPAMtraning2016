@@ -22,7 +22,7 @@ public class XmlContentHandlerMetal extends DefaultHandler {
     public void startElement(String namespaceURI, String localName,
                              String qName, Attributes atts) throws SAXException {
 
-        if (localName.equals("MetalFragment")) {
+        if (localName.equals("Metal")) {
             this.mMetalDataSet = new MetalDataSet();
             this.inMetal = true;
             mMetalDataSet.setMetal(atts.getValue("Id"));
@@ -33,7 +33,7 @@ public class XmlContentHandlerMetal extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName)
             throws SAXException {
 
-        if (this.inMetal && localName.equals("MetalFragment")) {
+        if (this.inMetal && localName.equals("Metal")) {
             this.mMetalDataSetList.add(mMetalDataSet);
             this.inMetal = false;
         } else if (this.inMetal && localName.equals("Name")) {

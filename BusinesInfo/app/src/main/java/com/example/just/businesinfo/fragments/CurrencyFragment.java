@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,7 +145,7 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
                 InputSource inputSource;
 
                 URL url = new URL(getString(R.string.CurrencyURL) + mMonth + "/" + mDay + "/" + mYear);
-                inputSource = new InputSource(url.openStream());
+                    inputSource = new InputSource(url.openStream());
 
                 SAXParserFactory saxParserFactory = SAXParserFactory
                         .newInstance();
@@ -164,9 +165,7 @@ public class CurrencyFragment extends Fragment implements View.OnClickListener {
                 ParsedDataSet dataItem;
 
                 while (i.hasNext()) {
-
                     dataItem = i.next();
-
                     ParsedDataSet parsedDataSets = db.getParsedDataSetByName(dataItem.getNumCode());
                     if (parsedDataSets != null) {
                         db.updateDataSet(dataItem.getRate(), dataItem.getNumCode());
